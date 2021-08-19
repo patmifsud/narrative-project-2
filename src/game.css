@@ -1,0 +1,90 @@
+/* global */
+.marginMe{
+  padding-top:300px;
+}
+
+.phase{
+  min-height:90vh;
+}
+
+.phaseBanner{
+  min-height:10vh;
+}
+
+.bar{
+  min-height:10vh;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background: var(--bgCol);
+}
+
+.largeCenteredText{
+  text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height:70vh;
+}
+
+/* story */
+.story{
+  margin-top:-10px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height:50vh;
+  background: var(--mainCol);
+  align-content: flex-end;
+}
+.story textarea{
+  color: black;    
+  height: 20vh;
+  max-height: 140px;
+}
+
+.sentence{
+  color: var(--blue3);
+  font-size: var(--fonts3);
+  display: inline;
+  flex-grow: 1;
+  padding: var(--sp5) var(--sp3) var(--sp2) var(--sp3);
+  height: fit-content;
+}
+
+.sentence .username{
+  position: absolute;
+  margin-top: -20px;
+  font-size: var(--fonts5);
+  opacity: 0.6;
+}
+
+/* player coloured sentence bgs */
+.pl0{
+  background-color: var(--pl0);
+}
+
+.pl1{
+  background-color:var(--pl1);
+}
+
+.pl2{
+  background-color:var(--pl2);
+}
+
+.pl3{
+  background-color:var(--pl3);
+}
+
+.pl4{
+  background-color:var(--pl4);
+}
+
+.pl5{
+  background-color:var(--pl5);
+}
+
+.pl99{
+  background-color:var(--p99);
+}

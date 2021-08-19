@@ -1,0 +1,259 @@
+/* structure and setup */
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700;800&display=swap');
+
+
+/* resets */
+*{box-sizing:border-box; margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;}
+div, .container, .nav, .inner {display: block; }
+body, html{ min-height: 100vh;  background: var(--bgCol2); }
+body{padding-bottom:10vh;}
+
+/* variables */
+:root {
+    /* spacers */
+    --sp0:3px;
+    --sp1:5px;
+    --sp2:12px;
+    --sp3:18px;
+    --sp4:25px;
+    --sp5:30px;
+    --sp6:35px;
+    --sp7:55px;
+    --sp8:70px;
+
+    /* font size */
+    --fonts1: 30px;
+    --fonts2: 20px;
+    --fonts3: 18px;
+    --fonts4: 16px;
+    --fonts5: 13px;
+    --maxTextWidth:800px;
+
+    /* color table */
+    --purple1: rgb(255, 255, 255);
+    --purple2: rgb(184, 184, 184);
+    --green1: #63B57D;
+    --yellow2: hsla(47, 100%, 90%, 1);
+    --blue1: rgb(80, 84, 105);
+    --blue2: rgb(56, 56, 58);
+    --blue3: rgb(36, 36, 36);
+
+    /* interface colors */
+    --mainCol: var(--purple1);
+    --bgCol: black;
+    --bgCol2: rgb(31, 31, 31);
+    
+    /* player colors */
+    --pl0: #fcd0b7ff;
+    --pl1: #fdecd8ff;
+    --pl2: #c8ebe0ff;
+    --pl3: #7ef0ffff;
+    --pl4: #89b3e6ff;
+    --pl5: hsla(47, 100%, 90%, 1);
+    --pl99:rgb(226, 115, 115); /* error */
+
+    
+    /*Misc*/
+    --borderRad:0;
+    --border: solid 1px var(--mainCol);
+
+  }
+
+/* ------------------------- */
+/* structure */
+.container{
+    padding:0 var(--sp4);
+    background-color: var(--bgCol);
+    width: 100%;
+}
+    .inner{
+        margin:0 auto;
+        width:100%;
+        max-width: 1000px;
+    }
+    .inner.padding{
+      padding:var(--sp3 0);
+  }
+
+.nav{
+    position:fixed;
+    display: flex;
+    width:100%;
+    max-height:10vh;
+    height:100vh;
+    background: var(--bgCol);
+    padding-bottom:0;
+}
+  .nav .inner{
+    border-bottom: var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+.main{
+  padding-top:85px;
+  height:100%;
+}
+
+.logo{
+  font-family: 'Sarabun', Helvetica, Arial, sans-serif;
+  font-size: var(--fonts4);
+
+}
+
+.home, .game{
+  padding-top:10vh;
+}
+
+p, h1, h2, h3, h4, h5, a, sub, label, .inner, textarea, input{
+  color: var(--mainCol);     
+  font-family: 'Sarabun', Helvetica, Arial, sans-serif;
+  line-height:130%;
+}
+
+
+
+h1{
+  font-size: var(--fonts1);
+  font-weight:800;
+}
+
+h2{
+  font-size: var(--fonts1);
+  font-weight:500;
+}
+
+h3{
+  font-size: var(--fonts2);
+}
+
+h4, h5{
+  font-size: var(--fonts4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+h5{
+  color: var(--purple2);     
+}
+
+p{
+  font-size:var(--fonts5);
+}
+
+small{
+  font-size:var(--fonts5);
+  color: var(--purple2);     
+}
+
+a{
+  text-decoration: none;
+  cursor: pointer;
+  margin:0 var(--sp0);
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+*::selection{
+  background-color: var(--green1);
+}
+
+*::placeholder{
+  color: var(--purple2);     
+}
+
+ul, ol{
+  text-indent: 0;
+  padding-left: 1em;
+}
+
+.underline{
+  border-bottom: 2px solid var(--green1);
+}
+
+li{
+  padding: var(--sp1) 0;
+}
+
+li::marker{
+color:var(--purple2);
+}
+
+
+
+.bold{
+  font-weight: 800;
+}
+
+.mono{
+  font-family: monospace;
+}
+
+.noBg{
+  background:none;
+}
+
+form{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+}
+  input[type=text], input[type=password], input[type=email], textarea{
+      background: linear-gradient(180deg, #F8F8FC 0%, #F8F8FC 95.31%, #C1B3CC 97.4%);
+      color: var(--bgCol2);
+      width: 100%;
+      padding: var(--sp3) var(--sp2);
+  }
+
+  label{
+      padding: var(--sp2) 0;
+      color: var(--purple2);
+  }
+
+button, input[type=submit], .button{
+  display: inline-block;
+  background: var(--green1);
+  color: var( --mainCol);
+  font-size: var( --fonts4);
+  padding: var( --sp2) var(--sp4);
+  cursor: pointer;
+}
+      button.primary, input[type=submit].primary, .button.primary{
+      background: var(--purple1);
+      color: var( --blue3);
+  }
+
+  form input[type=submit], .button.large, button.large{
+      font-size: var( --fonts2);
+      padding: var( --sp3) var(--sp6);
+  }
+
+  .button.medium, button.medium{
+    font-size: var( --fonts4);
+    padding: var( --sp2) var(--sp4);
+  }
+  
+      .flex-center input, .flex-center .button{
+          margin-bottom:0;
+          margin-top:0;
+      }
+
+  .button.submit{
+      align-self: normal;
+      font-size: var(--fonts2);
+      padding: var(--sp1) var(--sp4);
+      margin:0;
+  }
+
+  button:hover, input[type=submit]:hover, .button:hover, card:hover{
+      background: var(--green1);
+      color: var(--purple1);
+  }
+
+  button:active, input[type=submit]:active, .button:active{
+      opacity:0.8;
+  }
