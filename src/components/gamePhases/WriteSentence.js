@@ -14,8 +14,9 @@ function WriteSentence(props) {
 
   // send submition from child SentenceInputForm to 'Sentences' in db
   function handleSubmit(){
-
+  console.log(props.player);
     props.dbAddSentance({
+
       'text': localSentence, 
       'postition': props.postition, 
       'username': props.player.name,

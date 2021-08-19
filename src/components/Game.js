@@ -15,14 +15,17 @@ import {
   RevealScore,
   RevealFinalScore,
 } from "./gamePhases/allPhases";
+
 import { Bar } from "./ui/gameUi";
 // const postition = Math.random().toString(36).substr(2, 5);
 function Game() {
   const gameId = useLocation().pathname.split("/").pop();
   const [user] = useAuthState(auth)
+
   //--------------------------
   // STATES
   const [phase, setPhase] = useState("Loading");
+  const [isArbitrator, setIsArbitrator] = useState("Loading");
   const [players, setPlayers] = useState([]);
   const [player, setPlayer] = useState('')
   const [sentences, setSentences] = useState([]);
@@ -147,6 +150,7 @@ function Game() {
       .doc(gameId)
       .onSnapshot((snapshot) => {
         setPhase(snapshot.data().phase);
+        setIsArbitrator(snapshot.data().isArbitrator);
         setWinningSentence(snapshot.data().winningSentence);
       });
     
@@ -211,8 +215,7 @@ function Game() {
 
   function dbSetAllPlayersReadyTo(bool) {
     for (let i = 0; i < players.length; i++) {
-      const postition = players[i].postition.toString();
-      dbCollectionPlayers.doc(postition).update({ ready: bool });
+      dbCollectionPlayers.doc(player).update({ ready: bool });
     }
   }
 
@@ -329,7 +332,10 @@ function Game() {
           <h5>TEST PANNEL</h5>
           <br />
           <p> <b>Game id</b> is {gameId}</p>
+          <p> <b>Player position</b> is {player}</p>
           <p> <b>Current phase:</b> {phase}</p>
+          <p> <b>Current phase:</b> {phase}</p>
+
           <p> <b>Round:</b> {roundCounter} / {rules.gameLength}{" "} </p>
           <br />
           <div>
