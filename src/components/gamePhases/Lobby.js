@@ -1,4 +1,5 @@
 import { db, auth } from '../../services/firebase.js'
+import React, { useEffect } from "react"
 
 
 function Lobby(props) {
@@ -9,45 +10,40 @@ function Lobby(props) {
 
    // create player id for anonymous player 
    // pass the player id back to parent component(Game) <- how do we do this for the main player?
-   const position = (props.players.length).toString()
+   const position = props.players.length
 
-   //  set the players position as 'player' prop in the game obj
-   props.setPlayer(position)
+   props.setPlayer((position).toString())
 
-   const pid = localStorage.getItem("uid")
-   const uName = e.target[0].value
-   const gc = props.gameId
+   // checking if the player isn't a host
+   if (position > 0) {
+      //  set the players position as 'player' prop in the game obj
+      console.log('creating user ' + position)
 
-   let isHostValue = false
-   let isreadyValue = true
-   let isArbitratorValue = false
+      const pid = localStorage.getItem("uid")
+      const uName = e.target[0].value
+      const gc = props.gameId
 
-   // if first player make then the host
-   if (position === '0') {
-      isHostValue = true
-      isreadyValue = false
-      isArbitratorValue = true
-   }
-
-   db.collection("games").doc(gc).collection('players').doc(position).set({
-      name: uName, 
-      score: 0, 
-      isArbitrator: isArbitratorValue, 
-      ready: isreadyValue, 
-      isHost: isHostValue, 
-      id:pid}
-   )
+      db.collection("games").doc(gc).collection('players').doc(position.toString()).set({
+         name: uName, 
+         score: 0, 
+         isArbitrator: false, 
+         ready: true, 
+         isHost: false, 
+         id:pid}
+      )
 
     // handleSubmitOrTimeout()
-
+      }
    }
 
-   return (
-// ‼
-// we need to set props.setPlayer(); in the game component to the player position for the game to work
-// we need to do this for both the logged in and anon players
-// right now i've disabled sign up to get it working for testing and am creating users here to solve this bug
+   useEffect(() => {
+      if (props.players.length === 0) {
+         props.setPlayer('0')
+      }
+    }, [])
 
+
+   return (
       <div className="lobby phase">
          <div className="inner">
           <h4>Lobby</h4>

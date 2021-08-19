@@ -82,8 +82,8 @@ function Home() {
       //    text: "Once apon a time:", uid: 1, username: "frank", round: 1
       // })
       // Add Game Creator as 0 player in the game
-      // await db.collection("games").doc(gc).collection('players').doc('0').set({
-      //    name: userName, score: 0, isArbitrator: false, ready: false, isHost: true, id:userId, position:0})
+      await db.collection("games").doc(gc).collection('players').doc('0').set({
+         name: userName, score: 0, isArbitrator: true, ready: false, isHost: true, id:userId, position:0})
 
       history.push(`/play/${gc}`);
 

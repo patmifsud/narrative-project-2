@@ -28,6 +28,7 @@ function Game() {
   const [isArbitrator, setIsArbitrator] = useState("Loading");
   const [players, setPlayers] = useState([]);
   const [player, setPlayer] = useState('')
+  const [uid, setUid] = useState('')
   const [sentences, setSentences] = useState([]);
   const [story, setStory] = useState([]);
   const [winningSentence, setWinningSentence] = useState([]);
@@ -135,9 +136,9 @@ function Game() {
     if(localStorage.getItem("uid") === null){
       pid = createPlayerId()
         console.log('Game LS UID: ',pid)
-     setPlayer(pid)
+        setUid(pid)
      localStorage.setItem("uid", pid)
-   } else setPlayer(localStorage.getItem("uid"))
+   } else setUid(localStorage.getItem("uid"))
     // console.log('onCompMount: ',uid);
    }, [])
    
@@ -197,7 +198,6 @@ function Game() {
           querySnapshot.docs.forEach((doc) => {
             allPlayers.push(doc.data());
           });
-          //Set players from fb as current state
           setPlayers(allPlayers);
         } else console.log("no players yet");
       });
