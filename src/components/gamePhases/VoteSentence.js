@@ -8,12 +8,26 @@ function VoteSentence(props) {
     props.handleSubmitOrTimeout()
   }
 
+
+  function phaseBannerHeader(){
+    if (props.player?.ready) return
+    if (props.player.ready){
+      return (
+        <PhaseBanner 
+        emoji={'⌛️'} 
+        text={"Waiting for the other players to finish. Feel free to edit your answer in the meantime"}/> 
+      )}
+    return (
+      <PhaseBanner 
+        emoji={'✏️'} 
+        text={"What happens next in the story? Write your idea below:"}/> 
+    );
+  }
    return (
 
     
       <div className="voteSentence phase">
-        <PhaseBanner emoji={'🗳'} text={"Which sentence should be added to the story? Vote for your favorite."}/>
-
+        {phaseBannerHeader()}
         <div className="contianer">
           <div className="inner">
             <h4>Showing: VoteSentence</h4>

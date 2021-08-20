@@ -23,10 +23,30 @@ function WriteSentence(props) {
     })
     props.handleSubmitOrTimeout();
   };
+
+  let playerReady = ''
+
+  function phaseBannerHeader(){
+    if (!props.player) return
+    if (props.player.ready){
+      playerReady = 'ready'
+      return (
+        <PhaseBanner 
+        emoji={'⌛️'} 
+        text={"Waiting for the other players to finish. Feel free to edit your answer in the meantime"}/> 
+      )}
+    playerReady = ''
+    return (
+      <PhaseBanner 
+        emoji={'✏️'} 
+        text={"What happens next in the story? Write your idea below:"}/> 
+    );
+  }
   
   return (
-    <div className="writeSentence phase">
-        <PhaseBanner emoji={'✏️'} text={"What happens next in the story? Write your idea below:"}/>
+    <div className={`writeSentence phase ${playerReady}`}>
+      
+        {phaseBannerHeader()}
 
         <div className="inner">
         <Story story={props.story}/>

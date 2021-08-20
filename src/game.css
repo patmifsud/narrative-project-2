@@ -92,3 +92,8 @@
 .pl99{
   background-color:var(--p99);
 }
+
+.ready{
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
+  opacity: 0.6;
+}

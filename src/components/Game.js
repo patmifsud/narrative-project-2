@@ -240,9 +240,8 @@ function Game() {
   }
 
   function dbSetAllPlayersReadyTo(bool) {
-    const position = player.toString();
     for (let i = 0; i < players.length; i++) {
-      dbCollectionPlayers.doc(position).update({ ready: bool });
+      dbCollectionPlayers.doc(i.toString()).update({ ready: bool });
     }
   }
 
