@@ -151,21 +151,19 @@ function Game() {
   // just incase the page is refreshed
   // can't be done elsewhere otherwise it triggers before we have player data in state
   // in the future this should be moved to on page refresh
-  // useEffect(() => {
-  //   console.log('updatePlayerPosition is running')
-  //   console.log(players)
-  //   if (players.length > 0){
-  //     players.forEach(obj => {
-  //       console.log('checking each player for uid')
-  //       console.log('checking if')
-  //       console.log(obj.id)
-  //       console.log(uid)
-  //       if (obj.id == uid){
-  //         setPlayer(obj.position)
-  //       }
-  //     })
-  //   }
-  // }, [players])
+  useEffect(() => {
+    console.log('updatePlayerPosition is running')
+    console.log(players)
+    if (players.length > 0){
+      players.forEach(obj => {
+        console.log(obj.id)
+        console.log(uid)
+        if (obj.id == uid){
+          setPlayer(obj.position)
+        }
+      })
+    }
+  }, [players])
 
    
   //--------------------------
@@ -242,8 +240,9 @@ function Game() {
   }
 
   function dbSetAllPlayersReadyTo(bool) {
+    const position = player.toString();
     for (let i = 0; i < players.length; i++) {
-      dbCollectionPlayers.doc(player).update({ ready: bool });
+      dbCollectionPlayers.doc(position).update({ ready: bool });
     }
   }
 
