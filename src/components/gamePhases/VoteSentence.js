@@ -9,20 +9,20 @@ function VoteSentence(props) {
   }
 
 
-  function phaseBannerHeader(){
-    if (props.player?.ready) return
-    if (props.player.ready){
-      return (
-        <PhaseBanner 
-        emoji={'⌛️'} 
-        text={"Waiting for the other players to finish. Feel free to edit your answer in the meantime"}/> 
-      )}
-    return (
-      <PhaseBanner 
-        emoji={'✏️'} 
-        text={"What happens next in the story? Write your idea below:"}/> 
-    );
-  }
+  // function phaseBannerHeader(){
+  //   if (!props.player) return
+  //   if (props.player.ready){
+  //     return (
+  //       <PhaseBanner 
+  //       emoji={'⌛️'} 
+  //       text={"Waiting for the other players to finish. Feel free to edit your answer in the meantime"}/> 
+  //     )}
+  //   return (
+  //     <PhaseBanner 
+  //       emoji={'✏️'} 
+  //       text={"What happens next in the story? Write your idea below:"}/> 
+  //   );
+  // }
    return (
 
     

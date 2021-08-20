@@ -26,22 +26,22 @@ function WriteSentence(props) {
 
   let playerReady = ''
 
-  function phaseBannerHeader(){
-    if (!props.player) return
-    if (props.player.ready){
-      playerReady = 'ready'
-      return (
-        <PhaseBanner 
-        emoji={'⌛️'} 
-        text={"Waiting for the other players to finish. Feel free to edit your answer in the meantime"}/> 
-      )}
-    playerReady = ''
-    return (
-      <PhaseBanner 
-        emoji={'✏️'} 
-        text={"What happens next in the story? Write your idea below:"}/> 
-    );
-  }
+  // function phaseBannerHeader(){
+  //   if (!props.player) return
+  //   if (props.player.ready){
+  //     playerReady = 'ready'
+  //     return (
+  //       <PhaseBanner 
+  //       emoji={'⌛️'} 
+  //       text={"Waiting for the other players to finish. Feel free to edit your answer in the meantime"}/> 
+  //     )}
+  //   playerReady = ''
+  //   return (
+  //     <PhaseBanner 
+  //       emoji={'✏️'} 
+  //       text={"What happens next in the story? Write your idea below:"}/> 
+  //   );
+  // }
   
   return (
     <div className={`writeSentence phase ${playerReady}`}>
