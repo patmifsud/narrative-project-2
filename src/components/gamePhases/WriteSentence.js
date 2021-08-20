@@ -46,8 +46,9 @@ function WriteSentence(props) {
   return (
     <div className={`writeSentence phase ${playerReady}`}>
       
-        {phaseBannerHeader()}
-
+      <PhaseBanner 
+        emoji={'✏️'} 
+        text={"What happens next in the story? Write your idea below:"}/> 
         <div className="inner">
         <Story story={props.story}/>
         <SentenceInputForm 

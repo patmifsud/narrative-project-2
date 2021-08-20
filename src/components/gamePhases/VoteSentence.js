@@ -27,7 +27,7 @@ function VoteSentence(props) {
 
     
       <div className="voteSentence phase">
-        {phaseBannerHeader()}
+        <PhaseBanner emoji={'✏️'} text={"What happens next in the story? Write your idea below:"}/> 
         <div className="contianer">
           <div className="inner">
             <h4>Showing: VoteSentence</h4>
