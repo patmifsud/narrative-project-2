@@ -1,4 +1,5 @@
 // import React, { useState, useEffect } from 'react';
+import {PhaseBanner} from '../ui/gameUi'; 
 
 function VoteSentence(props) {
   
@@ -8,7 +9,11 @@ function VoteSentence(props) {
   }
 
    return (
+
+    
       <div className="voteSentence phase">
+        <PhaseBanner emoji={'🗳'} text={"Which sentence should be added to the story? Vote for your favorite."}/>
+
         <div className="contianer">
           <div className="inner">
             <h4>Showing: VoteSentence</h4>

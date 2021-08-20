@@ -18,7 +18,7 @@ function WriteSentence(props) {
     props.dbAddSentance({
 
       'text': localSentence, 
-      'postition': props.postition, 
+      'position': props.position, 
       'username': props.player.name,
     })
     props.handleSubmitOrTimeout();
@@ -26,7 +26,8 @@ function WriteSentence(props) {
   
   return (
     <div className="writeSentence phase">
-      <PhaseBanner />
+        <PhaseBanner emoji={'✏️'} text={"What happens next in the story? Write your idea below:"}/>
+
         <div className="inner">
         <Story story={props.story}/>
         <SentenceInputForm 

@@ -12,7 +12,7 @@ function Lobby(props) {
    // pass the player id back to parent component(Game) <- how do we do this for the main player?
    const position = props.players.length
 
-   props.setPlayer((position).toString())
+   props.setPlayer(position)
 
    // checking if the player isn't a host
    if (position > 0) {
@@ -27,6 +27,7 @@ function Lobby(props) {
          name: uName, 
          score: 0, 
          isArbitrator: false, 
+         position: position,
          ready: true, 
          isHost: false, 
          id:pid}

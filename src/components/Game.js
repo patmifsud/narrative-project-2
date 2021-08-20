@@ -17,7 +17,7 @@ import {
 } from "./gamePhases/allPhases";
 
 import { Bar } from "./ui/gameUi";
-// const postition = Math.random().toString(36).substr(2, 5);
+// const position = Math.random().toString(36).substr(2, 5);
 function Game() {
   const gameId = useLocation().pathname.split("/").pop();
   const [user] = useAuthState(auth)
@@ -104,6 +104,7 @@ function Game() {
           player={players[player]}
           winningSentence={winningSentence}
           roundCounter={roundCounter}
+          dbAddPointTo={dbAddPointTo}
           setReadyAfter={setReadyAfter}
           dbCyclePlayerRoles={dbCyclePlayerRoles}
           dbSetRoundCounterTo={dbSetRoundCounterTo}
@@ -130,17 +131,42 @@ function Game() {
    }
 
    // if user is not anoymous get auth.uid otherwie generate a uuid
-   useEffect(() => {
-     console.log('Game LS UID: ',localStorage.getItem("uid"))
-     let pid = ''
+  useEffect(() => {
+    console.log('UID use effect is running')
+    console.log('Game LS UID: ',localStorage.getItem("uid"))
+    let pid = ''
+
     if(localStorage.getItem("uid") === null){
       pid = createPlayerId()
-        console.log('Game LS UID: ',pid)
-        setUid(pid)
-     localStorage.setItem("uid", pid)
-   } else setUid(localStorage.getItem("uid"))
-    // console.log('onCompMount: ',uid);
+      console.log('Game LS UID: ',pid)
+      setUid(pid)
+      localStorage.setItem("uid", pid)
+    } else {
+      setUid(localStorage.getItem("uid"))
+    }
+
    }, [])
+
+  // when players are edited check we have the right position
+  // just incase the page is refreshed
+  // can't be done elsewhere otherwise it triggers before we have player data in state
+  // in the future this should be moved to on page refresh
+  // useEffect(() => {
+  //   console.log('updatePlayerPosition is running')
+  //   console.log(players)
+  //   if (players.length > 0){
+  //     players.forEach(obj => {
+  //       console.log('checking each player for uid')
+  //       console.log('checking if')
+  //       console.log(obj.id)
+  //       console.log(uid)
+  //       if (obj.id == uid){
+  //         setPlayer(obj.position)
+  //       }
+  //     })
+  //   }
+  // }, [players])
+
    
   //--------------------------
   // 🔥 FIREBASE GET - AUTO UPDATE COMPONENT STATES when db changes:
@@ -209,14 +235,23 @@ function Game() {
   const dbCollectionPlayers = db.collection("games").doc(gameId).collection("players");
 
   function dbSetThisPlayerReadyTo(bool) {
-    const postition = player.toString();
-    dbCollectionPlayers.doc(postition).update({ ready: bool });
+    const position = player.toString();
+    console.log(position)
+    console.log(player)
+    dbCollectionPlayers.doc(position).update({ ready: bool });
   }
 
   function dbSetAllPlayersReadyTo(bool) {
     for (let i = 0; i < players.length; i++) {
       dbCollectionPlayers.doc(player).update({ ready: bool });
     }
+  }
+
+  function dbAddPointTo(player) {
+    const position = (player).toString();
+    const currentScore = players[player].score
+    const newScore = currentScore + 1
+    dbCollectionPlayers.doc(position).update({ score: newScore });
   }
 
   function dbSetPhaseTo(phaseParam) {
@@ -228,32 +263,28 @@ function Game() {
   }
 
   function dbCyclePlayerRoles() {
-    //will do later
+    // let assignedAnArbitrator = false
+    // for (let i = 0; i < players.length; i++) {
+    //   if (players[i].isArbitrator){
+    //     dbCollectionPlayers.doc(i.toString()).update({ isArbitrator: false });
+    //   }
+    // }
   }
 
   function dbAddSentance(data) {
-      // if (data.text == null){
-      //    dbCollectionGame.collection("sentences").doc()
-      //       .set({ text: "and then, out of nowhere, there was an error in the game 😔", postition: player, username: "Error" }
-      //    );
-      // } else {
          console.log("GAME: about to add a SENTENCE during" + phase)
-         console.log({text: data.text, postition: player, username: data.username});
+         console.log({text: data.text, position: player, username: data.username});
          dbCollectionGame.collection("sentences").doc()
-            .set({ text: data.text, postition: player, username: data.username }
+            .set({ text: data.text, position: player, username: data.username }
          );
     }
 
   function dbAddStory(data) {
-      // if (data.text == null){
-      //    dbCollectionGame.collection("story").doc()
-      //       .set({ text: "and then, out of nowhere, there was an error in the game 😔", postition: player, username: "Error" });
-      // } else {
          console.log("GAME: about to add a STORY during" + phase)
-         console.log({text: data.text, postition: player, username: data.username})
+         console.log({text: data.text, position: player, username: data.username})
          console.log(" ")
          dbCollectionGame.collection("story").doc()
-            .set({ text: data.text, postition: player, username: data.username });
+            .set({ text: data.text, position: player, username: data.username });
       }
 
   function dbClearSentances() {
@@ -274,7 +305,7 @@ function Game() {
   // when players state changes (pulled from db) check if all are ready.
   // If admin && if ready set db to next phase
   useEffect(() => {
-    console.log('mvoe to next phase use effect is running')
+    console.log('move to next phase use effect is running')
     if (players.length > 0 && players[player]) {
       console.log('checking ' + player)
       if (players[player].isHost) {
@@ -321,6 +352,8 @@ function Game() {
     dbSetPhaseTo(phaseTable[phase].next);
   }
 
+
+
   return (
     <div className="game">
       {phaseTable[phase].component}
@@ -345,9 +378,8 @@ function Game() {
                 dbSetAllPlayersReadyTo(true);
               }}
             >
-              {" "}
-              Set all players to ready{" "}
-            </button>{" "}
+              Set all players to ready
+            </button>
             &nbsp;
             <button
               className="medium"
@@ -357,6 +389,14 @@ function Game() {
             >
               {" "}
               Set me to ready{" "}
+            </button>
+
+            <button
+              className="medium"
+              onClick={() => {
+                dbAddPointTo(1);
+              }}>
+              Add point to p1
             </button>
           </div>
 ​
@@ -374,7 +414,7 @@ function Game() {
                     isArbitrator: false,
                     ready: false,
                     isHost: false,
-                    postition: 1,
+                    position: 1,
                   });
               }}
             >
@@ -394,7 +434,7 @@ function Game() {
                     isArbitrator: false,
                     ready: false,
                     isHost: false,
-                    postition: 2,
+                    position: 2,
                   });
               }}
             >

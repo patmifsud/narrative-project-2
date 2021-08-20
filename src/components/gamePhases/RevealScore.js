@@ -26,7 +26,10 @@ function RevealScore(props) {
     console.log(props.roundCounter)
     console.log(props.player.isHost)
     if (props.player.isHost){
+
       console.log('updating...')
+          console.log(props.winningSentence)
+          props.dbAddPointTo(props.winningSentence.position)
           props.dbAddStory(props.winningSentence)
           props.dbCyclePlayerRoles()
           props.dbSetRoundCounterTo()
@@ -38,7 +41,6 @@ function RevealScore(props) {
 
    return (
       <div className="revealScore phase">
-        <PhaseBanner />
          <div className="inner">
            <ul>
               { props.players.map( (playerData) =>  
